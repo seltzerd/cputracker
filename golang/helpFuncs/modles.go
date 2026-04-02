@@ -3,7 +3,7 @@ package help
 import "time"
 
 type FromAgent struct {
-	AgentID         string    `json:"agent_id"`
+	// AgentID         string    `json:"agent_id"`
 	Timestamp       time.Time `json:"timestamp"`
 	CpuPercent      float64   `json:"cpu_percent"`
 	MemoryUsedMB    int       `json:"memory_used_mb"`
