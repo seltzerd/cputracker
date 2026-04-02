@@ -19,6 +19,7 @@ func Collect() string {
 
 	data := &help.FromAgent{
 		// AgentID:       "agent-1",
+
 		Timestamp:       time.Now(),
 		MemoryTotalMB:   int(m.Total / 1024 / 1024),
 		MemoryUsedMB:    int(m.Used / 1024 / 1024),
