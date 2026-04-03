@@ -1,7 +1,13 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
 
 app = FastAPI()
+
+templates = Jinja2Templates(directory="templates")
+
 
 class GoMetrics(BaseModel):
     go_id: str
@@ -15,6 +21,15 @@ class GoMetrics(BaseModel):
 async def receive_metrics(metric: GoMetrics):
     print(f"Пришли данные от {metric.go_id}: CPU {metric.cpu_percent}%")
     return {"status": "ok"}
+
+
+
+@app.get("/dashboard", response_class=HTMLResponse)
+async def read_dashboard(request: Request):
+    metrics_list = [{"agent": "Home-PC", "cpu": 45}, {"agent": "Work-Srv", "cpu": 12}]
+    return templates.TemplateResponse("index.html", {"request": request, "metrics": metrics_list})
+
+
 
 @app.get("/status")
 async def get_status():
