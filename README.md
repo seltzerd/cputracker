@@ -52,3 +52,5 @@ Metrics are printed to stdout every second via `log.Println`.
 `FromAgent` — data collected by the agent (used internally and for future API transport).
 
 `ToSwift` — model for sending data to a Swift client (online status, last seen time).
+
+UPDATE SOON...
