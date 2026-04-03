@@ -3,6 +3,7 @@ package collect
 import (
 	help "cpu_tracker/helpFuncs"
 	"fmt"
+	"math"
 	"os"
 	"time"
 
@@ -25,8 +26,8 @@ func Collect() string {
 		Timestamp:       time.Now().Local().Format("2006-01-02 15:04:05"),
 		MemoryTotalMB:   int(m.Total / 1024 / 1024),
 		MemoryUsedMB:    int(m.Used / 1024 / 1024),
-		CpuPercent:      cpu[0],
-		DiskUsedPercent: d.UsedPercent,
+		CpuPercent:      math.Round(cpu[0]*100) / 100,
+		DiskUsedPercent: math.Round(d.UsedPercent*100) / 100,
 	}
 	// bytes, err := json.Marshal(data)
 
