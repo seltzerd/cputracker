@@ -7,6 +7,14 @@ import (
 	"os"
 	"time"
 
+	/*
+		#cgo CFLAGS: -I./include
+		#cgo LDFLAGS: -L./sensors.h
+		#include <stdlib.h>
+		#include "example.h"
+	*/
+	"C"
+	// "github.com/seltzerd/cputracker/tree/danek"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
