@@ -7,6 +7,13 @@ import (
 	"os"
 	"time"
 
+	/*
+		#cgo CXXFLAGS: -std=c++17 -I${SRCDIR}/../cpp
+		#cgo darwin LDFLAGS: -lc++
+		#include "sensors.h"
+	*/
+	"C"
+	// "github.com/seltzerd/cputracker/tree/danek"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
@@ -31,7 +38,11 @@ func Collect() string {
 	}
 	// bytes, err := json.Marshal(data)
 
-	res := fmt.Sprintf("AgentID: %+v\nTimeStamp: %+v\nMemoryTotal: %+v MB\nMemoryUsed: %+v MB\nCpuPercent: %+v %%\nDiskUsedPercent: %+v %%\n", data.AgentID, data.Timestamp, data.MemoryTotalMB, data.MemoryUsedMB, data.CpuPercent, data.DiskUsedPercent)
+	temp := float64(C.get_cpu_temp())
+	battPercent := float64(C.get_battery_percent())
+	fanSpeed := int(C.get_fan_speed_rpm())
+
+	res := fmt.Sprintf("AgentID: %+v\nTimeStamp: %+v\nMemoryTotal: %+v MB\nMemoryUsed: %+v MB\nCpuPercent: %+v %%\nDiskUsedPercent: %+v %%\nTemp: %.2f C\nBattery percent: %.2f\nFan speed (rpm): %d\n", data.AgentID, data.Timestamp, data.MemoryTotalMB, data.MemoryUsedMB, data.CpuPercent, data.DiskUsedPercent, temp, battPercent, fanSpeed)
 
 	return res
 	// total := m.Total / 1024 * 1024
