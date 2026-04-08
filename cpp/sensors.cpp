@@ -1,8 +1,12 @@
 #include "sensors.h"
 
-double get_cpu_temp() {
-  return 50.0;
-}
+#ifdef __mac__
+#inlcude "mac/mac_sensors.cpp"
+
+#elif __linux__
+#include "linux/linux_sensors.cpp"
+
+#endif
 
 double get_battery_percent() {
   return 85.0;
