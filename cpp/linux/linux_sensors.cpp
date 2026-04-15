@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <glob.h>
+#include <algorithm>
 
 double get_cpu_temp() {
   std::string path = "/sys/class/hwmon/hwmon*/temp*_input";
@@ -22,3 +23,12 @@ double get_cpu_temp() {
   return mx_temp / 1000.0;
 }
 
+double get_battery_percent() {
+  std::ifstream file1("/sys/class/power_supply/BAT0/capacity");
+  std::ifstream file2("/sys/class/power_supply/BAT1/capacity");
+  double value1;
+  double value2;
+  file1 >> value1;
+  file2 >> value2;
+  return std::max(value1, value2);
+}
